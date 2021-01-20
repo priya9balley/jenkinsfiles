@@ -9,7 +9,7 @@ stage('analyse_sourcecode')
 {
         withEnv(["MAVN_HOME=$mvnHome"])
            {
-         withSonarQubeEnv(credentialsId: 'sonar123', installationName: 'sonar') {
+         withSonarQubeEnv(credentialsId: 'admin', installationName: 'sonarqube') {
           sh '"$MAVN_HOME/bin/mvn" org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
         }
        }
@@ -24,7 +24,7 @@ stage('build_artifact')
     }
 stage('upload_artifact')
 {
-nexusArtifactUploader artifacts: [[artifactId: 'course', classifier: '', file: '/home/ec2-user/workspace/upload_artifact/target/course.war', type: 'war']], credentialsId: 'nexusid', groupId: 'course', nexusUrl: '3.17.64.40:8081/', nexusVersion: 'nexus3', protocol: 'http', repository: 'course', version: '1.0.0.${BUILD_ID}'
+nexusArtifactUploader artifacts: [[artifactId: 'course', classifier: '', file: '/home/ec2-user/workspace/upload_artifact/target/course.war', type: 'war']], credentialsId: 'nexusid', groupId: 'course', nexusUrl: '18.221.54.54:8081/', nexusVersion: 'nexus3', protocol: 'http', repository: 'course', version: '1.0.0.${BUILD_ID}'
 
 }
 stage('deploy_artifact')
